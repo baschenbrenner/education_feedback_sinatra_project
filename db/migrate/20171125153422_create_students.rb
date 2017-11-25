@@ -5,6 +5,7 @@ class CreateStudents < ActiveRecord::Migration[5.1]
       t.string :last_name
       t.string :preferred_name
       t.integer :teacher_id
+      t.string :password_digest
     end
   end
 end

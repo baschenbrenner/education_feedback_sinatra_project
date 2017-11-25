@@ -24,12 +24,14 @@ ActiveRecord::Schema.define(version: 20171125153428) do
     t.string "last_name"
     t.string "preferred_name"
     t.integer "teacher_id"
+    t.string "password_digest"
   end
 
   create_table "teachers", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "preferred_name"
+    t.string "password_digest"
   end
 
 end
