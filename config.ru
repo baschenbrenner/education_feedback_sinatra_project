@@ -7,6 +7,6 @@ end
 use Rack::MethodOverride
 
 #use StudentsController
-#use TeachersController
+use TeachersController
 #use FeedbacksController
 run ApplicationController
