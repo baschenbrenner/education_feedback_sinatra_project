@@ -1,6 +1,22 @@
-Add New Feedback
-
+<h2>Add New Feedback</h2><br/>
+<br/>
+<p> Your input is really important to making college work for you, <%=@student.first_name%>. Be honest in your response.
+  You can pick a one word response that fits or you can write a new response in the text box. If you choose to write a new response
+  you can write a one word adjective or a longer sentence. </p>
+How did you feel during class today?<br/>
 <form method="post" action='/feedbacks/new'>
-  <input type="text" name="content">
-  <input type="submit" value="Create New Feedback"
+  <br/>
+  <br/>
+  <input type="text" name="content" maxlength="256"><br/>
+<br/>
+<br/>
+  Or you can select from previous one word feedback provided:<br/>
+  <br/>
+
+<%@feedbacks = Feedback.all.map {|feedback| feedback.content}%>
+<%@feedbacks.delete_if {|feedback| feedback.include?(" ")}%>
+<%@feedbacks.each do |feedback|%>
+ <input type="checkbox" name="teacher" id="<%=feedback%>" value="checkbox_feedback"><%=feedback%><br/></input>
+<%end%>
+<input type="submit" value="Create New Feedback">
 </form>
