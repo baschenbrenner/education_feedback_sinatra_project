@@ -17,4 +17,22 @@ class FeedbacksController < ApplicationController
    redirect to '/feedbacks/index'
  end
 
+ get '/feedbacks/index' do
+ @student = Student.find(session[:user_id])
+ erb :"/feedbacks/index"
+ end
+
+
+  get '/feedbacks/edit/:id' do
+    @feedback = Feedback.find(params[:id])
+    erb :"/feedbacks/edit"
+  end
+
+  get '/feedbacks/delete/:id' do
+    @feedback = Feedback.find(params[:id])
+    erb :"/feedbacks/delete"
+  end
+
+
+
 end
