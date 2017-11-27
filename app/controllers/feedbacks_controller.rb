@@ -1,9 +1,10 @@
-require 'rake-flash'
+require 'rack-flash'
 class FeedbacksController < ApplicationController
- use Rake::Flash
+ use Rack::Flash
 
 
  get '/feedbacks/new' do
+   
    erb :"/feedbacks/new"
  end
 

@@ -1,4 +1,6 @@
+require 'rack-flash'
 class StudentsController < ApplicationController
+  use Rack::Flash
 
   get "/students" do
     erb :"students/index"
@@ -33,7 +35,8 @@ class StudentsController < ApplicationController
     redirect to '/students/login'
   end
 
-  get 'students/show/:id'
+  get "/students/show/:id" do
     @student= Student.find(params[:id])
     erb :"students/show"
+  end
 end

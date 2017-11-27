@@ -8,5 +8,5 @@ use Rack::MethodOverride
 
 use StudentsController
 use TeachersController
-#use FeedbacksController
+use FeedbacksController
 run ApplicationController
