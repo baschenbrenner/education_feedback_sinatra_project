@@ -33,6 +33,17 @@ class FeedbacksController < ApplicationController
     erb :"/feedbacks/delete"
   end
 
+  post '/feedbacks/edit/:id' do
+    @feedback = Feedback.find(params[:id])
+    @feedback.content = params[:content]
+    @feedback.save
+    erb :"/feedbacks/index"
+  end
 
+  post '/feedbacks/delete/:id' do
+    @feedback = Feedback.find(params[:id])
+    @feedback.delete
+    erb :"/feedbacks/index"
+  end
 
 end
