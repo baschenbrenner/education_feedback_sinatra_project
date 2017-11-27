@@ -1,0 +1,14 @@
+<h1>Student Login Page</h1>
+
+<% if flash.has?(:message) %>
+  <%= flash[:message] %> <br/>
+<% end %>
+
+<br/>
+<form  action="/students/login" method="post">
+  First Name:<input type="text" name="first_name" placeholder="Donald" required><br/>
+  Last Name<input type="text" name="last_name" placeholder="Drumpf" required><br/>
+  Password<input type="text" name="password" required><br/>
+  <input type="submit" value="Login To Student View"><br/>
+</form>
+<br/>
