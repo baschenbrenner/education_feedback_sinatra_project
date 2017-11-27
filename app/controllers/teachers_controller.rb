@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class TeachersController < ApplicationController
+  use Rack::Flash
+  
   get '/teachers' do
     erb :"teachers/index"
   end
@@ -22,6 +26,9 @@ class TeachersController < ApplicationController
     if @teacher && @teacher.authenticate(params[:password])
       session[:user_id]=@teacher.id
     redirect to "/teachers/show/#{@teacher.id}"
+    else
+      flash[:message]="You entered invalid login credentials."
+      redirect '/teachers/login'
     end
   end
 
