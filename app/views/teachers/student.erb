@@ -1,0 +1,17 @@
+Individual Student info Page <br/>
+<br/>
+First Name: <%=@student.first_name%><br/>
+Last Name: <%=@student.last_name%><br/>
+Preferred Name: <%=@student.preferred_name%><br/>
+<br/>
+Feedback Provided:<br/>
+<ul>
+<%@student.feedbacks.each do |feedback|%>
+<li><%=feedback.content%></li><br/>
+<%end%>
+</ul>
+
+
+
+
+<a href="/teachers/login">Logout</a>

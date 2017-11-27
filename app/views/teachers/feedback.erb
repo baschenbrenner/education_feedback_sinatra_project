@@ -1,7 +1,9 @@
 <h1>Feedback From Students</h1><br/>
 <br/>
 <ul>
-<%=@teacher.feedback.each do |feedback|%>
+<%@teacher.feedbacks.each do |feedback|%>
 <li><%=feedback.content%></li><br/>
 <%end%>
 </ul>
+
+<a href="/teachers/login">Logout</a>

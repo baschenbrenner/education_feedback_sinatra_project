@@ -10,12 +10,12 @@ Teacher Preferred Name:<%@teacher.preferred_name%><br/>
 Student List
 <ol>
   <%@teacher.students.each do |student|%>
-  <li><a href="/teachers/student/<%=student.id%>"><%=student.last_name%>,<%=student.first_name%></a></li>
+  <li><a href="/teachers/student/<%=student.id%>"><%=student.last_name%>, <%=student.first_name%></a></li>
   <%end%>
 </ol>
 
-<a href="/teachers/<%=@teacher.id%>/feedback">Click Here for Anonymized Feedback From All Students</a>
-
+<a href="/teachers/<%=@teacher.id%>/feedback">Click Here for Anonymized Feedback From All Students</a><br/>
+<br/>
 
 <a href="/teachers/login">Logout</a>
 
