@@ -6,7 +6,8 @@ Here are the things you have said previously, <%=@student.first_name%>. <br/>
 You said:
 <ol>
 <%@student.feedbacks.each do |feedback|%>
-<li><%=feedback.content%> which was submitted on <%=feedback.created_at%> <a href="/feedbacks/edit/<%=feedback.id%>">Edit</a> <a href="/feedbacks/delete/<%=feedback.id%>">Delete</a></li>
+<li><%=feedback.content%> <br/>
+            which was submitted on <%=feedback.created_at%> <a href="/feedbacks/edit/<%=feedback.id%>">Edit</a> <a href="/feedbacks/delete/<%=feedback.id%>">Delete</a></li>
 <%end%>
 </ol>
 
