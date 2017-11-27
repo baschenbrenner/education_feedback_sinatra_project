@@ -1,8 +1,9 @@
-Login Form <br/>
+<h2>Login Form </h2><br/>
 
 <% if flash.has?(:message) %>
   <%= flash[:message] %> <br/>
 <% end %>
+
 <br/>
 <form  action="/teachers/login" method="post">
   First Name:<input type="text" name="first_name" placeholder="Franklin" required><br/>
@@ -10,3 +11,5 @@ Login Form <br/>
   Password<input type="text" name="password" required><br/>
   <input type="submit" value="Login To Teacher View"><br/>
 </form>
+<br/>
+<a href="/index">Back to Home Page</a>

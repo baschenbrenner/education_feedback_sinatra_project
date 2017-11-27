@@ -2,7 +2,7 @@ require 'rack-flash'
 
 class TeachersController < ApplicationController
   use Rack::Flash
-  
+
   get '/teachers' do
     erb :"teachers/index"
   end
@@ -18,6 +18,7 @@ class TeachersController < ApplicationController
   post '/teachers/signup' do
     @teacher=Teacher.create(first_name: params[:first_name], last_name: params[:last_name], preferred_name: params[:preferred_name], password: params[:password])
     @teacher.save
+    flash[:message]="You have successfully created an account. Now you can log in!"
     redirect to '/teachers/login'
   end
 
