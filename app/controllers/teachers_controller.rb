@@ -31,10 +31,12 @@ class TeachersController < ApplicationController
   end
 
   get '/teachers/student/:id' do
+    @student = Student.find(params[:id])
     erb :"teachers/student"
   end
 
-  get '/teachers/feedback' do
+  get '/teachers/:id/feedback' do
+    @teacher = Teacher.find(params[:id])
     erb :"/teachers/feedback"
   end
 end

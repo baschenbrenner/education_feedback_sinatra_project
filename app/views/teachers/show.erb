@@ -10,6 +10,10 @@ Teacher Preferred Name:<%@teacher.preferred_name%><br/>
 Student List
 <ol>
   <%@teacher.students.each do |student|%>
-  <li><a href=""><%=student.last_name%>,<%=student.first_name%></a></li>
+  <li><a href="/teachers/student/<%=student.id%>"><%=student.last_name%>,<%=student.first_name%></a></li>
   <%end%>
 </ol>
+
+<a href="teachers/<%=@teacher.id%>/feedback">Click Here for Anonymized Feedback From All Students</a>
+<!--need to make a teacher, student page - this view would show information about the student, which isn't much, just preferred name and maybe a link to see their individual feedback!>
+<!--need to make a teacher feedback page - this view would show feedback, maybe in aggregate form!>
