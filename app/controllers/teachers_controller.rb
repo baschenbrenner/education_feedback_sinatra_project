@@ -17,9 +17,16 @@ class TeachersController < ApplicationController
     redirect to '/teachers/login'
   end
 
-  post '/teachers/signup' do
+  post '/teachers/login' do
     @teacher=Teacher.find_by(first_name: params[:first_name], last_name: params[:last_name])
     if @teacher && @teacher.authenticate(params[:password])
-    redirect to '/teachers/show'
+      session[:user_id]=@teacher.id
+    redirect to "/teachers/show/#{@teacher.id}"
+    end
+  end
+
+  get '/teachers/show/:id' do
+    @teacher=Teacher.find(session[:user_id])
+    erb :"teachers/show"
   end
 end
