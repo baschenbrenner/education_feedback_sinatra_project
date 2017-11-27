@@ -1,6 +1,9 @@
-Login Form
+Login Form <br/>
 
-
+<% if flash.has?(:message) %>
+  <%= flash[:message] %> <br/>
+<% end %>
+<br/>
 <form  action="/teachers/login" method="post">
   First Name:<input type="text" name="first_name" placeholder="Franklin" required><br/>
   Last Name<input type="text" name="last_name" placeholder="Roosevelt" required><br/>
