@@ -1,7 +1,15 @@
-Individual Teacher Page
+<h2>Individual Teacher Page</h2>
+<br/>
+<h3>Teacher Info</h3><br/>
+Teacher ID:<%=@teacher.id%><br/>
+Teacher First Name:<%=@teacher.first_name%><br/>
+Teacher Last Name:<%=@teacher.last_name%><br/>
+Teacher Preferred Name:<%@teacher.preferred_name%><br/>
 
-Teacher Info:
-Teacher ID:<%=@teacher.id%>
-Teacher First Name:<%=@teacher.first_name%>
-Teacher Last Name:<%=@teacher.last_name%>
-Teacher Preferred Name:<%@teacher.preferred_name%>
+
+Student List
+<ol>
+  <%@teacher.students.each do |student|%>
+  <li><a href=""><%=student.last_name%>,<%=student.first_name%></a></li>
+  <%end%>
+</ol>

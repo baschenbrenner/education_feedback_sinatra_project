@@ -29,4 +29,12 @@ class TeachersController < ApplicationController
     @teacher=Teacher.find(session[:user_id])
     erb :"teachers/show"
   end
+
+  get '/teachers/student/:id' do
+    erb :"teachers/student"
+  end
+
+  get '/teachers/feedback' do
+    erb :"/teachers/feedback"
+  end
 end
