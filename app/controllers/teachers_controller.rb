@@ -1,13 +1,15 @@
 require 'rack-flash'
-
+require 'pry'
 class TeachersController < ApplicationController
   use Rack::Flash
 
   get '/teachers' do
+    session.clear
     erb :"teachers/index"
   end
 
   get '/teachers/login' do
+    session.clear
     erb :"teachers/login"
   end
 
@@ -26,6 +28,7 @@ class TeachersController < ApplicationController
     @teacher=Teacher.find_by(first_name: params[:first_name], last_name: params[:last_name])
     if @teacher && @teacher.authenticate(params[:password])
       session[:user_id]=@teacher.id
+      session[:user_type]="teacher"
     redirect to "/teachers/show/#{@teacher.id}"
     else
       flash[:message]="You entered invalid login credentials."
@@ -34,13 +37,35 @@ class TeachersController < ApplicationController
   end
 
   get '/teachers/show/:id' do
-    @teacher=Teacher.find(session[:user_id])
-    erb :"teachers/show"
-  end
+    if session[:user_type]=="teacher"
+      if params[:id].to_i == session[:user_id].to_i
+        @teacher=Teacher.find(session[:user_id])
+        erb :"teachers/show"
+      else
+        flash[:message]="This path belongs to another teacher."
+        redirect to "/teachers/login"
+      end
+    else
+      flash[:message]="You do not have access to teacher content."
+      redirect to "/students/login"
+    end
+
+   end
 
   get '/teachers/student/:id' do
-    @student = Student.find(params[:id])
-    erb :"teachers/student"
+    if session[:user_type]=="teacher"
+      if Student.find(params[:id]).teacher.id == session[:user_id].to_i
+        @student = Student.find(params[:id])
+        erb :"teachers/student"
+      else
+        flash[:message]="This student belongs to another teacher."
+        redirect to "/teachers/login"
+      end
+    else
+      flash[:message]="You do not have access to teacher content."
+      redirect to "/students/login"
+    end
+
   end
 
   get '/teachers/:id/feedback' do
