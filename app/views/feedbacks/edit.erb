@@ -4,10 +4,11 @@ Currently This Feedback Says:<br/>
 <%=@feedback.content%><br/>
 
 Type in What you Would Like it to Say:<br/>
+<input type="hidden" name="_method" value="PATCH">
 <form method="post" action="/feedbacks/edit/<%=@feedback.id%>">
   <input type="text" name="content"><br/>
   <input type="submit" value="Edit Feedback">
 </form>
 
-<a href="/feedbacks/delete/<%=@feedback.id%>">Or You can delete this feedback </a>
-Or You can go back to the index
+<a href="/feedbacks/delete/<%=@feedback.id%>">Or You can delete this feedback </a><br/>
+<a href="/feedbacks/index"> Or You can go back to the index </a><br/>
