@@ -7,7 +7,7 @@ class StudentsController < ApplicationController
   end
 
   get "/students/login" do
-    session.clear
+
     erb :"students/login"
   end
 
@@ -39,7 +39,7 @@ class StudentsController < ApplicationController
 
   get "/students/show/:id" do
     if session[:user_type]="student"
-      if Student.find(params[:id]) == session[:user_id]
+      if params[:id].to_i == session[:user_id].to_i
         @student= Student.find(params[:id])
         erb :"students/show"
       else
