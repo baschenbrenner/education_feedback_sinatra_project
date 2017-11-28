@@ -16,7 +16,7 @@ How did you feel during class today?<br/>
 <%@feedbacks = Feedback.all.map {|feedback| feedback.content}%>
 <%@feedbacks.delete_if {|feedback| feedback.include?(" ")}%>
 <%@feedbacks.each do |feedback|%>
- <input type="checkbox" name="teacher" id="<%=feedback%>" value="checkbox_feedback"><%=feedback%><br/></input>
+ <input type="checkbox" name="feedback" value="<%=feedback%>"><%=feedback%><br/></input>
 <%end%>
 <input type="submit" value="Create New Feedback">
 </form>

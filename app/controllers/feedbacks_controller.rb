@@ -10,15 +10,15 @@ class FeedbacksController < ApplicationController
  end
 
  post '/feedbacks/new' do
-   binding.pry
    if params[:content] != ""
-     @feedback = Feedback.create(content: params[:content])
-    else
-      @feedback = Feedback.create(content: params[:checkbox_feedback])
-    end
+    @feedback = Feedback.create(content: params[:content])
+   else
+    @feedback = Feedback.create(content: params[:feedback])
+  end
    @student = Student.find(session[:user_id])
    @student.feedbacks << @feedback
-   @feedback.save
+
+
    @student.save
    redirect to '/feedbacks/index'
  end
