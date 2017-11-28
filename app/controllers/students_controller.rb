@@ -7,6 +7,7 @@ class StudentsController < ApplicationController
   end
 
   get "/students/login" do
+    session.clear
     erb :"students/login"
   end
 
@@ -18,6 +19,7 @@ class StudentsController < ApplicationController
     @student=Student.find_by(first_name: params[:first_name], last_name: params[:last_name])
     if @student && @student.authenticate(params[:password])
       session[:user_id]=@student.id
+      session[:user_type]="student"
     redirect to "/students/show/#{@student.id}"
     else
       flash[:message]="You entered invalid login credentials."
@@ -36,7 +38,17 @@ class StudentsController < ApplicationController
   end
 
   get "/students/show/:id" do
-    @student= Student.find(params[:id])
-    erb :"students/show"
+    if session[:user_type]="student"
+      if Student.find(params[:id]) == session[:user_id]
+        @student= Student.find(params[:id])
+        erb :"students/show"
+      else
+        flash[:message]="You don't have access to that page."
+        redirect to '/students/login'
+      end
+    else
+      flash[:message]="This page is for students."
+      redirect to '/students/login'
+    end
   end
 end
