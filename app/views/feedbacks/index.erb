@@ -10,5 +10,5 @@ You said:
             which was submitted on <%=feedback.created_at%> <a href="/feedbacks/edit/<%=feedback.id%>">Edit</a> <a href="/feedbacks/delete/<%=feedback.id%>">Delete</a></li>
 <%end%>
 </ol>
-
+<a href="/students/show/<%=@student.id%>">Back to Student Main Page</a><br/>
 <a href="/students/login">Logout</a>

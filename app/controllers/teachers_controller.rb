@@ -1,5 +1,5 @@
 require 'rack-flash'
-require 'pry'
+
 class TeachersController < ApplicationController
   use Rack::Flash
 
@@ -69,7 +69,19 @@ class TeachersController < ApplicationController
   end
 
   get '/teachers/:id/feedback' do
-    @teacher = Teacher.find(params[:id])
-    erb :"/teachers/feedback"
+    if session[:user_type]=="teacher"
+      if params[:id].to_i == session[:user_id].to_i
+        @teacher = Teacher.find(params[:id])
+        erb :"/teachers/feedback"
+      else
+        flash[:message]="This path belongs to another teacher."
+        redirect to "/teachers/login"
+      end
+    else
+      flash[:message]="You do not have access to teacher content."
+      redirect to "/students/login"
+    end
   end
+
+
 end

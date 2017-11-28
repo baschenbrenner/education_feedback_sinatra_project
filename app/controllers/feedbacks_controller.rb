@@ -1,4 +1,5 @@
 require 'rack-flash'
+require 'pry'
 class FeedbacksController < ApplicationController
  use Rack::Flash
 
@@ -9,7 +10,12 @@ class FeedbacksController < ApplicationController
  end
 
  post '/feedbacks/new' do
-   @feedback = Feedback.create(content: params[:content])
+   binding.pry
+   if params[:content] != ""
+     @feedback = Feedback.create(content: params[:content])
+    else
+      @feedback = Feedback.create(content: params[:checkbox_feedback])
+    end
    @student = Student.find(session[:user_id])
    @student.feedbacks << @feedback
    @feedback.save
