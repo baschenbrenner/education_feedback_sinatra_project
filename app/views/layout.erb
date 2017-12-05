@@ -12,9 +12,25 @@
       <div id="navbar" class="light-fade">
            <div class="wrapper">
              <nav>
-               <a class="selected" href="/index">Home</a> | <a class="selected" href="/about">About</a> |
-                <a class="selected" href="/teachers/login">Teacher Login</a> | <a class="selected" href="/students/login">Student Login</a> |
-                <a class="selected" href="/teachers/signup">Teacher Sign Up</a> | <a class="selected" href="/students/signup">Student Sign Up</a>
+               <% if authenticate_teacher! %>
+               <a class="selected milk-text" href="/index">Home</a> | <a class="selected" href="/about">About</a> |
+                <a class="selected" href=<%="/teachers/show/#{current_user.id}"%>>View Students</a> | <a class="selected" href=<%="/teachers/#{current_user.id}/feedback"%>>View Feedback</a> |
+                <a class="selected" href="/teachers/signup">Logout</a>
+                <% end %>
+
+                <% if authenticate_student! %>
+                <a class="selected milk-text" href="/index">Home</a> | <a class="selected" href="/about">About</a> |
+                  <a class="selected" href="/feedbacks/new">Create New Feedback</a> |
+                 <a class="selected" href="/feedbacks/index">Review Previous Feedback</a> |
+                  <a class="selected" href="/students/signup">Logout</a>
+                 <% end %>
+
+                 <% if !authenticate_student! && !authenticate_teacher! %>
+                 <a class="selected milk-text" href="/index">Home</a> | <a class="selected" href="/about">About</a> |
+                  <a class="selected" href="/teachers/login">Teacher Login</a> | <a class="selected" href="/students/login">Student Login</a> |
+                  <a class="selected" href="/teachers/signup">Teacher Sign Up</a> | <a class="selected" href="/students/signup">Student Sign Up</a>
+                  <% end %>
+
 
                 </nav>
            </div><!-- .wrapper <img src="https://s3.amazonaws.com/after-school-assets/cat-typing.gif">-->
@@ -28,5 +44,3 @@
 
   </body>
 </html>
-
-<!--link rel="stylesheet" href="/css/style.css">

@@ -9,15 +9,15 @@ In addition, future versions will allow students to be able to aggregate feedbac
 
 # helper methods
 
-# current_user
-# logged_in?
+x# current_user
+x# logged_in?
 
 # private methods
 
-# authenticate_teacher!
-# authenticate_student!
+x# authenticate_teacher!
+x# authenticate_student!
 
-# persitent layout.erb
+# persistent layout.erb
 # dynamic navbar
 # Teacher routes
 # student routes
