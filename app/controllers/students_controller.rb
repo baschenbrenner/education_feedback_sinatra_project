@@ -30,8 +30,10 @@ class StudentsController < ApplicationController
 
   post '/students/signup' do
     @student=Student.create(first_name: params[:first_name], last_name: params[:last_name], preferred_name: params[:preferred_name], password: params[:password])
+    if params[:teacher] != nil
     @teacher = Teacher.find(params[:teacher])
     @student.teacher=@teacher
+    end
     @student.save
     flash[:message]="You have successfully created an account. Now you can log in!"
     redirect to '/students/login'
