@@ -21,13 +21,14 @@ class ApplicationController < Sinatra::Base
 
   helpers do
   		def logged_in?
-        !!current_user
+          !!current_user
   		end
 
+
   		def current_user
-        if authenticate_teacher!
+        if session[:user_type] == 'teacher'
           @current_user ||= Teacher.find_by(id: session[:user_id]) if session[:user_id]
-        elsif authenticate_student!
+        elsif session[:user_type] == 'student'
           @current_user ||= Student.find_by(id: session[:user_id]) if session[:user_id]
         else
           return nil
@@ -38,10 +39,15 @@ class ApplicationController < Sinatra::Base
 
   private
     def authenticate_teacher!
-      session[:user_type]=="teacher"
+      if !logged_in? || session[:user_type] != 'teacher'
+     redirect to '/teachers/login'
+      end
     end
+
     def authenticate_student!
-      session[:user_type]=="student"
+      if !logged_in? || session[:user_type] != 'student'
+     redirect to '/students/login'
+      end
     end
 
 

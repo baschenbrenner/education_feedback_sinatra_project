@@ -20,7 +20,7 @@ class TeachersController < ApplicationController
   post '/teachers/signup' do
     @teacher = Teacher.new(first_name: params[:first_name], last_name: params[:last_name], preferred_name: params[:preferred_name], username: params[:username], password: params[:password])
     if @teacher.save
-    flash[:message]="You have successfully created an account. Now you can log in!"
+      flash[:message]="You have successfully created an account. Now you can log in!"
     redirect to '/teachers/login'
     else
       flash[:message]="That username is already taken. Try another one."
