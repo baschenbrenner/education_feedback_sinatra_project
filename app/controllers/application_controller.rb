@@ -25,7 +25,13 @@ class ApplicationController < Sinatra::Base
   		end
 
   		def current_user
-  			User.find(session[:user_id])
+        if session[:user_type]=="teacher"
+          Teacher.find(session[:user_id])
+        elsif session[:user_type]=="student"
+          Student.find(session[:user_id])
+        else
+          return nil
+        end
   		end
   	end
 
@@ -34,7 +40,9 @@ class ApplicationController < Sinatra::Base
     def authenticate_teacher!
       session[:user_type]=="teacher"
     end
-
+    def authenticate_student!
+      session[:user_type]=="student"
+    end
 
 
 end

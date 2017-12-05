@@ -18,7 +18,6 @@ class TeachersController < ApplicationController
   end
 
   post '/teachers/signup' do
-
     @teacher = Teacher.new(first_name: params[:first_name], last_name: params[:last_name], preferred_name: params[:preferred_name], username: params[:username], password: params[:password])
     if @teacher.save
     flash[:message]="You have successfully created an account. Now you can log in!"
@@ -44,7 +43,7 @@ class TeachersController < ApplicationController
   get '/teachers/show/:id' do
     if authenticate_teacher!
       if params[:id].to_i == session[:user_id].to_i
-        @teacher=Teacher.find(session[:user_id])
+        @teacher=current_user
         erb :"teachers/show"
       else
         flash[:message]="This path belongs to another teacher."
@@ -58,8 +57,8 @@ class TeachersController < ApplicationController
    end
 
   get '/teachers/student/:id' do
-    if session[:user_type]=="teacher"
-      if Student.find(params[:id]).teacher.id == session[:user_id].to_i
+    if authenticate_teacher!
+      if Student.find(params[:id]).teacher.id == current_user.id
         @student = Student.find(params[:id])
         erb :"teachers/student"
       else
@@ -74,9 +73,9 @@ class TeachersController < ApplicationController
   end
 
   get '/teachers/:id/feedback' do
-    if session[:user_type]=="teacher"
-      if params[:id].to_i == session[:user_id].to_i
-        @teacher = Teacher.find(params[:id])
+    if authenticate_teacher!
+      if params[:id].to_i == current_user.id
+        @teacher = current_user
         erb :"/teachers/feedback"
       else
         flash[:message]="This path belongs to another teacher."
