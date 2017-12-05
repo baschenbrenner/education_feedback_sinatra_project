@@ -110,12 +110,3 @@ class FeedbacksController < ApplicationController
   end
 
 end
-
-# helper methods
-
-# current_user
-# logged_in?
-
-# private methods
-# authenticate_teacher!
-# authenticate_student!

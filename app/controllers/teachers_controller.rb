@@ -24,7 +24,7 @@ class TeachersController < ApplicationController
     flash[:message]="You have successfully created an account. Now you can log in!"
     redirect to '/teachers/login'
     else
-      flash.now[:message]="That username is already taken. Try another one."
+      flash[:message]="That username is already taken. Try another one."
       redirect 'teachers/signup'
     end
   end
@@ -42,7 +42,7 @@ class TeachersController < ApplicationController
   end
 
   get '/teachers/show/:id' do
-    if session[:user_type]=="teacher"
+    if authenticate_teacher!
       if params[:id].to_i == session[:user_id].to_i
         @teacher=Teacher.find(session[:user_id])
         erb :"teachers/show"

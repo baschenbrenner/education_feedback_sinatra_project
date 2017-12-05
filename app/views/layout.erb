@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Educational Feedback</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div id="navbar" class="light-fade">
+           <div class="wrapper">
+             <nav>
+               <a class="selected" href="/index">Home</a> | <a class="selected" href="/about">About</a> |
+                <a class="selected" href="/teachers/login">Teacher Login</a> | <a class="selected" href="/students/login">Student Login</a> |
+                <a class="selected" href="/teachers/signup">Teacher Sign Up</a> | <a class="selected" href="/students/signup">Student Sign Up</a>
+
+                </nav>
+           </div><!-- .wrapper <img src="https://s3.amazonaws.com/after-school-assets/cat-typing.gif">-->
+
+
+      <%= yield %>
+
+
+
+    </div>
+
+  </body>
+</html>
+
+<!--link rel="stylesheet" href="/css/style.css">

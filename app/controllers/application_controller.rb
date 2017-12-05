@@ -18,4 +18,23 @@ class ApplicationController < Sinatra::Base
     erb :about
   end
 
+
+  helpers do
+  		def logged_in?
+  			!!session[:user_id]
+  		end
+
+  		def current_user
+  			User.find(session[:user_id])
+  		end
+  	end
+
+
+  private
+    def authenticate_teacher!
+      session[:user_type]=="teacher"
+    end
+
+
+
 end
