@@ -18,14 +18,19 @@ class TeachersController < ApplicationController
   end
 
   post '/teachers/signup' do
-    @teacher=Teacher.create(first_name: params[:first_name], last_name: params[:last_name], preferred_name: params[:preferred_name], password: params[:password])
-    @teacher.save
+
+    @teacher = Teacher.new(first_name: params[:first_name], last_name: params[:last_name], preferred_name: params[:preferred_name], username: params[:username], password: params[:password])
+    if @teacher.save
     flash[:message]="You have successfully created an account. Now you can log in!"
     redirect to '/teachers/login'
+    else
+      flash.now[:message]="That username is already taken. Try another one."
+      redirect 'teachers/signup'
+    end
   end
 
   post '/teachers/login' do
-    @teacher=Teacher.find_by(first_name: params[:first_name], last_name: params[:last_name])
+    @teacher=Teacher.find_by(username: params[:username])
     if @teacher && @teacher.authenticate(params[:password])
       session[:user_id]=@teacher.id
       session[:user_type]="teacher"

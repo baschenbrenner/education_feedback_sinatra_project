@@ -43,12 +43,13 @@ class FeedbacksController < ApplicationController
 
   get '/feedbacks/edit/:id' do
     if session[:user_type]="student"
-      if Feedback.find(params[:id]).student.id == session[:user_id]
-        @feedback = Feedback.find(params[:id])
+      @feedback = Feedback.find_by(id: params[:id])
+      if @feedback && @feedback.student_id == session[:user_id]
+
         erb :"/feedbacks/edit"
       else
         flash[:message]="You don't have access to that page."
-        redirect to '/students/login'
+        redirect to '/feedbacks'
       end
     else
       flash[:message]="This page is for students."
@@ -109,3 +110,12 @@ class FeedbacksController < ApplicationController
   end
 
 end
+
+# helper methods
+
+# current_user
+# logged_in?
+
+# private methods
+# authenticate_teacher!
+# authenticate_student!
