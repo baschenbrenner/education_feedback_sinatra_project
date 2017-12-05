@@ -5,8 +5,8 @@ class FeedbacksController < ApplicationController
 
 
  get '/feedbacks/new' do
-   if session[:user_type]="student"
-     @student = Student.find(session[:user_id])
+   if authenticate_student!
+     @student = current_user
         erb :"/feedbacks/new"
    else
      flash[:message]="This page is for students."
@@ -21,16 +21,15 @@ class FeedbacksController < ApplicationController
    else
     @feedback = Feedback.create(content: params[:feedback])
   end
-   @student = Student.find(session[:user_id])
+   @student = current_user
    @student.feedbacks << @feedback
-
    @student.save
    redirect to '/feedbacks/index'
  end
 
  get '/feedbacks/index' do
-   if session[:user_type]="student"
-     @student = Student.find(session[:user_id])
+   if authenticate_student!
+     @student = current_user
      erb :"/feedbacks/index"
    else
      flash[:message]="This page is for students."
@@ -42,9 +41,9 @@ class FeedbacksController < ApplicationController
 
 
   get '/feedbacks/edit/:id' do
-    if session[:user_type]="student"
+    if authenticate_student!
       @feedback = Feedback.find_by(id: params[:id])
-      if @feedback && @feedback.student_id == session[:user_id]
+      if @feedback && @feedback.student == current_user
 
         erb :"/feedbacks/edit"
       else
@@ -59,8 +58,8 @@ class FeedbacksController < ApplicationController
   end
 
   get '/feedbacks/delete/:id' do
-    if session[:user_type]="student"
-      if Feedback.find(params[:id]).student.id == session[:user_id]
+    if authenticate_student!
+      if Feedback.find(params[:id]).student == current_user
         @feedback = Feedback.find(params[:id])
         erb :"/feedbacks/delete"
       else
@@ -76,8 +75,8 @@ class FeedbacksController < ApplicationController
   end
 
   post '/feedbacks/edit/:id' do
-    if session[:user_type]="student"
-      if Feedback.find(params[:id]).student.id == session[:user_id]
+    if authenticate_student!
+      if Feedback.find(params[:id]).student == current_user
         @feedback = Feedback.find(params[:id])
         @feedback.content = params[:content]
         @feedback.save
@@ -94,8 +93,8 @@ class FeedbacksController < ApplicationController
   end
 
   post '/feedbacks/delete/:id' do
-    if session[:user_type]="student"
-      if Feedback.find(params[:id]).student.id == session[:user_id]
+    if authenticate_student!
+      if Feedback.find(params[:id]).student == current_user
         @feedback = Feedback.find(params[:id])
         @feedback.delete
         redirect to "/feedbacks/index"
