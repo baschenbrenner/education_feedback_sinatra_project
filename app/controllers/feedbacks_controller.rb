@@ -5,7 +5,7 @@ class FeedbacksController < ApplicationController
 
 
  get '/feedbacks/new' do
-   if authenticate_student!
+   if authenticate_student! && logged_in?
      @student = current_user
         erb :"/feedbacks/new"
    else
@@ -28,7 +28,7 @@ class FeedbacksController < ApplicationController
  end
 
  get '/feedbacks/index' do
-   if authenticate_student!
+   if authenticate_student! && logged_in?
      @student = current_user
      erb :"/feedbacks/index"
    else
@@ -41,7 +41,7 @@ class FeedbacksController < ApplicationController
 
 
   get '/feedbacks/edit/:id' do
-    if authenticate_student!
+    if authenticate_student! && logged_in?
       @feedback = Feedback.find_by(id: params[:id])
       if @feedback && @feedback.student == current_user
 
@@ -58,7 +58,7 @@ class FeedbacksController < ApplicationController
   end
 
   get '/feedbacks/delete/:id' do
-    if authenticate_student!
+    if authenticate_student! && logged_in?
       if Feedback.find(params[:id]).student == current_user
         @feedback = Feedback.find(params[:id])
         erb :"/feedbacks/delete"
@@ -74,8 +74,8 @@ class FeedbacksController < ApplicationController
 
   end
 
-  post '/feedbacks/edit/:id' do
-    if authenticate_student!
+  patch '/feedbacks/:id/edit' do
+    if authenticate_student! && logged_in?
       if Feedback.find(params[:id]).student == current_user
         @feedback = Feedback.find(params[:id])
         @feedback.content = params[:content]
@@ -92,8 +92,8 @@ class FeedbacksController < ApplicationController
 
   end
 
-  post '/feedbacks/delete/:id' do
-    if authenticate_student!
+  delete '/feedbacks/:id/delete' do
+    if authenticate_student! && logged_in?
       if Feedback.find(params[:id]).student == current_user
         @feedback = Feedback.find(params[:id])
         @feedback.delete

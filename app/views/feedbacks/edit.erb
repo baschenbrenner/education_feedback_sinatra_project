@@ -4,8 +4,9 @@ Currently This Feedback Says:<br/>
 <%=@feedback.content%><br/>
 
 Type in What you Would Like it to Say:<br/>
-<input type="hidden" name="_method" value="PATCH">
-<form method="post" action="/feedbacks/edit/<%=@feedback.id%>">
+
+<form method="post" action="/feedbacks/<%=@feedback.id%>/edit">
+  <input type="hidden" name="_method" value="PATCH">
   <input type="text" name="content"><br/>
   <input type="submit" value="Edit Feedback">
 </form>

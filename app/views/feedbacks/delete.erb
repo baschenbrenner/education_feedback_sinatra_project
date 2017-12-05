@@ -1,8 +1,9 @@
 Delete Feedback <br/>
 
 WARNING: This can not be undone!<br/>
-<input type="hidden" name="_method" value="DELETE">
-<form method="post" action="/feedbacks/delete/<%=@feedback.id%>">
+
+<form method="post" action="/feedbacks/<%=@feedback.id%>/delete">
+  <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="Delete Feedback"><br/>
 </form>
 

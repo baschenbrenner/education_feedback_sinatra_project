@@ -21,14 +21,14 @@ class ApplicationController < Sinatra::Base
 
   helpers do
   		def logged_in?
-  			params[:id].to_i == current_user.id
+        !!current_user
   		end
 
   		def current_user
-        if session[:user_type]=="teacher"
-          Teacher.find_by(id: session[:user_id])
-        elsif session[:user_type]=="student"
-          Student.find_by(id: session[:user_id])
+        if authenticate_teacher!
+          @current_user ||= Teacher.find_by(id: session[:user_id]) if session[:user_id]
+        elsif authenticate_student!
+          @current_user ||= Student.find_by(id: session[:user_id]) if session[:user_id]
         else
           return nil
         end
