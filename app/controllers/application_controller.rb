@@ -21,7 +21,7 @@ class ApplicationController < Sinatra::Base
 
   helpers do
   		def logged_in?
-  			!!session[:user_id]
+  			params[:id].to_i == current_user.id
   		end
 
   		def current_user

@@ -42,7 +42,7 @@ class TeachersController < ApplicationController
 
   get '/teachers/show/:id' do
     if authenticate_teacher!
-      if params[:id].to_i == session[:user_id].to_i
+      if logged_in?
         @teacher=current_user
         erb :"teachers/show"
       else
@@ -74,7 +74,7 @@ class TeachersController < ApplicationController
 
   get '/teachers/:id/feedback' do
     if authenticate_teacher!
-      if params[:id].to_i == current_user.id
+      if logged_in?
         @teacher = current_user
         erb :"/teachers/feedback"
       else
