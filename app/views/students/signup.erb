@@ -1,14 +1,20 @@
 <h2>Student SignUp Page</h2>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %> <br/>
+<% end %>
+
 <br/>
 <form method="POST" action='/students/signup'>
   First Name:<input type="text" name="first_name" placeholder="Franklin" required><br/>
   Last Name<input type="text" name="last_name" placeholder="Roosevelt" required><br/>
+  User Name<input type="text" name="username" placeholder="FRoos" required><br/>
   What You Prefer Students to Call You<input type="text" name="preferred_name" placeholder="Franky" required ><br/>
+<br/>
   Password<input type="password" name="password" required><br/>
 
-  Select a Teacher Below (Optional)
-  <input type="checkbox"
+  Select a Teacher Below (Optional) <br/>
+
 
   <%Teacher.all.each do |teacher|%>
    <input type="checkbox" name="teacher" id="<%=teacher.id %>" value="<%=teacher.id%>"><%=teacher.last_name%>, <%=teacher.first_name%></input><br/>

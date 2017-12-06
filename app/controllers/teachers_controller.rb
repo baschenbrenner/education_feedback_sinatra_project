@@ -18,14 +18,18 @@ class TeachersController < ApplicationController
   end
 
   post '/teachers/signup' do
-    @teacher=Teacher.create(first_name: params[:first_name], last_name: params[:last_name], preferred_name: params[:preferred_name], password: params[:password])
-    @teacher.save
-    flash[:message]="You have successfully created an account. Now you can log in!"
+    @teacher = Teacher.new(first_name: params[:first_name], last_name: params[:last_name], preferred_name: params[:preferred_name], username: params[:username], password: params[:password])
+    if @teacher.save
+      flash[:message]="You have successfully created an account. Now you can log in!"
     redirect to '/teachers/login'
+    else
+      flash[:message]="That username is already taken. Try another one."
+      redirect 'teachers/signup'
+    end
   end
 
   post '/teachers/login' do
-    @teacher=Teacher.find_by(first_name: params[:first_name], last_name: params[:last_name])
+    @teacher=Teacher.find_by(username: params[:username])
     if @teacher && @teacher.authenticate(params[:password])
       session[:user_id]=@teacher.id
       session[:user_type]="teacher"
@@ -37,9 +41,9 @@ class TeachersController < ApplicationController
   end
 
   get '/teachers/show/:id' do
-    if session[:user_type]=="teacher"
-      if params[:id].to_i == session[:user_id].to_i
-        @teacher=Teacher.find(session[:user_id])
+    if authenticate_teacher!
+      if logged_in?
+        @teacher=current_user
         erb :"teachers/show"
       else
         flash[:message]="This path belongs to another teacher."
@@ -53,8 +57,8 @@ class TeachersController < ApplicationController
    end
 
   get '/teachers/student/:id' do
-    if session[:user_type]=="teacher"
-      if Student.find(params[:id]).teacher.id == session[:user_id].to_i
+    if authenticate_teacher!
+      if Student.find(params[:id]).teacher.id == current_user.id
         @student = Student.find(params[:id])
         erb :"teachers/student"
       else
@@ -69,9 +73,9 @@ class TeachersController < ApplicationController
   end
 
   get '/teachers/:id/feedback' do
-    if session[:user_type]=="teacher"
-      if params[:id].to_i == session[:user_id].to_i
-        @teacher = Teacher.find(params[:id])
+    if authenticate_teacher!
+      if logged_in?
+        @teacher = current_user
         erb :"/teachers/feedback"
       else
         flash[:message]="This path belongs to another teacher."
